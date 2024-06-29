@@ -9,21 +9,21 @@ if (!pref.ollamaCertificateValidation) process.env["NODE_TLS_REJECT_UNAUTHORIZED
 
 export default function Command(): JSX.Element {
   const c = CommandAnswer.PROFESSIONAL;
-  const p = `Act as a professional content writer and editor. (replyWithRewrittenText)
+  const p = `Actúa como un redactor y editor de contenido profesional.
 
-Strictly follow these rules:
-- Professional tone of voice
-- Formal language
-- Accurate facts
-- Correct spelling, grammar, and punctuation
-- Concise phrasing
-- meaning  unchanged
-- Length retained
+Sigue estrictamente estas reglas:
+
+- Tono profesional
+- Lenguaje formal
+- Hechos precisos
+- Ortografía, gramática y puntuación correctas
+- Redacción concisa
+- Significado inalterado
+- Longitud mantenida
 - (maintainURLs)
-(maintainOriginalLanguage)
+- (maintainOriginalLanguage)
+Texto: {selección}
 
-Text: {selection}
-
-Rewritten text:`;
+Texto reescrito:`;
   return <AnswerView command={c} prompt={p} creativity={Creativity.Low} />;
 }

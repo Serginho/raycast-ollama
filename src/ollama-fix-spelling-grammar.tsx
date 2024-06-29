@@ -9,17 +9,17 @@ if (!pref.ollamaCertificateValidation) process.env["NODE_TLS_REJECT_UNAUTHORIZED
 
 export default function Command(): JSX.Element {
   const c = CommandAnswer.FIX;
-  const p = `Act as a spelling corrector and improver. (replyWithRewrittenText)
+  const p = `Actúa como un corrector y mejorador de ortografía.
 
-Strictly follow these rules:
-- Correct spelling, grammar and punctuation
-- (maintainOriginalLanguage)
-- NEVER surround the rewritten text with quotes
-- (maintainURLs)
-- Don't change emojis
+Sigue estrictamente estas reglas:
 
-Text: {selection}
+- Corrige la ortografía, gramática y puntuación
+- Mantén el idioma original
+- NUNCA rodees el texto corregido con comillas
+- Mantén las URLs
+- No cambies los emojis
+Texto: {selección}
 
-Fixed Text:`;
+Texto Corregido:`;
   return <AnswerView command={c} prompt={p} creativity={Creativity.Low} />;
 }

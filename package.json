@@ -5,7 +5,12 @@
   "description": "Perform Local Inference with Ollama",
   "icon": "icon.png",
   "author": "massimiliano_pasquini",
-  "categories": ["Productivity"],
+  "contributors": [
+    "serginho"
+  ],
+  "categories": [
+    "Productivity"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -58,122 +63,122 @@
   "commands": [
     {
       "name": "ollama-chat",
-      "title": "Chat with Ollama",
+      "title": "Ollama chat",
       "subtitle": "Ollama",
       "description": "Chat with Ollama",
       "mode": "view"
     },
     {
       "name": "ollama-browser-summarize",
-      "title": "Summarize Website",
+      "title": "Ollama summarize website",
       "subtitle": "Ollama",
       "description": "Summarize content from current Website.",
       "mode": "view"
     },
     {
-      "name": "ollama-casual",
-      "title": "Change Tone to Casual",
-      "subtitle": "Ollama",
-      "description": "Make selected text more casual",
-      "mode": "view"
-    },
-    {
       "name": "ollama-code-explain",
-      "title": "Explain Code Step by Step",
+      "title": "Ollama code explain",
       "subtitle": "Ollama",
-      "description": "Explain the selected code step by step",
+      "description": "Explain selected code step by step",
       "mode": "view"
     },
     {
-      "name": "ollama-confident",
-      "title": "Change Tone to Confident",
+      "name": "ollama-email-response",
+      "title": "Ollama email response",
       "subtitle": "Ollama",
-      "description": "Make selected text more confident",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-explain",
-      "title": "Explain This in Simple Terms",
-      "subtitle": "Ollama",
-      "description": "Explain selected text in simple terms",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-fix-spelling-grammar",
-      "title": "Fix Spelling and Grammar",
-      "subtitle": "Ollama",
-      "description": "Fix selected text from spelling and grammar error",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-friendly",
-      "title": "Change Tone to Friendly",
-      "subtitle": "Ollama",
-      "description": "Make selected text more friendly",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-image-describe",
-      "title": "Describe Content of Image",
-      "subtitle": "Ollama",
-      "description": "Describe content of the image on the clipboard or selected from finder",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-image-to-text",
-      "title": "Get Text from Image",
-      "subtitle": "Ollama",
-      "description": "Get text from image on the clipboard or selected from finder",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-improve-writing",
-      "title": "Improve Writing",
-      "subtitle": "Ollama",
-      "description": "Improve writing of selected text",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-longer",
-      "title": "Make Longer",
-      "subtitle": "Ollama",
-      "description": "Make selected text longher",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-professional",
-      "title": "Change Tone to Professional",
-      "subtitle": "Ollama",
-      "description": "Make selected text more professional",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-shorter",
-      "title": "Make Shorter",
-      "subtitle": "Ollama",
-      "description": "Make selected text shorter",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-translate",
-      "title": "Translate",
-      "subtitle": "Ollama",
-      "description": "Translate selected text",
+      "description": "Response emails",
       "mode": "view",
       "arguments": [
         {
-          "name": "language",
-          "placeholder": "To Language",
+          "name": "responseDetails",
+          "placeholder": "Response details",
           "type": "text",
           "required": true
         }
       ]
     },
     {
-      "name": "ollama-tweet",
-      "title": "Rephrase as Tweet",
+      "name": "ollama-explain",
+      "title": "Ollama explain",
       "subtitle": "Ollama",
-      "description": "Rephrase selected text as Tweet",
+      "description": "Explain selected text in simple terms",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-fix-spelling-grammar",
+      "title": "Ollama fix spelling and grammar",
+      "subtitle": "Ollama",
+      "description": "Correct spelling and grammar",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-image-describe",
+      "title": "Ollama image describe",
+      "subtitle": "Ollama",
+      "description": "Describe content of clipboard or selected image from browser",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-image-to-text",
+      "title": "Ollama image to text",
+      "subtitle": "Ollama",
+      "description": "Extract text from image",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-improve-writing",
+      "title": "Ollama improve writing",
+      "subtitle": "Ollama",
+      "description": "Improve writing style",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-longer",
+      "title": "Ollama text longer",
+      "subtitle": "Ollama",
+      "description": "Make text longer",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-professional",
+      "title": "Ollama change professional tone",
+      "subtitle": "Ollama",
+      "description": "Make tone professional",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-summary-15",
+      "title": "Ollama summarize 15 words",
+      "subtitle": "Ollama",
+      "description": "Summarize text in 15 words",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-summary-50",
+      "title": "Ollama summarize 50 words",
+      "subtitle": "Ollama",
+      "description": "Summarize text in 50 words",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-summary-200",
+      "title": "Ollama summarize 200 words",
+      "subtitle": "Ollama",
+      "description": "Summarize text in 200 words",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-translate-es",
+      "title": "Ollama translate Spanish",
+      "subtitle": "Ollama",
+      "description": "Translate text to Spanish",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-translate-en",
+      "title": "Ollama Translate English",
+      "subtitle": "Ollama",
+      "description": "Translate text to English",
       "mode": "view"
     },
     {

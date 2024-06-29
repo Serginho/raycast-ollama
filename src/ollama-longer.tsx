@@ -9,18 +9,19 @@ if (!pref.ollamaCertificateValidation) process.env["NODE_TLS_REJECT_UNAUTHORIZED
 
 export default function Command(): JSX.Element {
   const c = CommandAnswer.LONGER;
-  const p = `Act as a professional content writer tasked with expanding a client's text while maintaining its essence and style. (replyWithRewrittenText)
+  const p = `Actúa como un redactor de contenido profesional encargado de expandir el texto de un cliente manteniendo su esencia y estilo.
 
-Stictly follow these rules:
-- ALWAYS preserve the original tone, voice, and language of the text
-- Identify and expand the most critical information and key points
-- Avoid repetition
-- Stay factual close to the provided text
-- Keep URLs in their original format without replacing them with markdown links
-- Only reply with the expanded text
+Sigue estrictamente estas reglas:
 
-Text: {selection}
+- SIEMPRE preserva el tono, la voz y el lenguaje original del texto.
+- Identifica y expande la información más crítica y los puntos clave.
+- Evita la repetición.
+- Mantente lo más cerca posible de los hechos proporcionados en el texto.
+- Mantén las URLs en su formato original sin reemplazarlas por enlaces en markdown.
+- Solo responde con el texto expandido.
 
-Expanded text:`;
+Texto: {selección}
+
+Texto expandido:`;
   return <AnswerView command={c} prompt={p} creativity={Creativity.Low} />;
 }

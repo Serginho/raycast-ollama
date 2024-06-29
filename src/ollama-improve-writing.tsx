@@ -9,22 +9,21 @@ if (!pref.ollamaCertificateValidation) process.env["NODE_TLS_REJECT_UNAUTHORIZED
 
 export default function Command(): JSX.Element {
   const c = CommandAnswer.IMPROVE;
-  const p = `Act as a spelling corrector, content writer, and text improver/editor. Reply to each message only with the rewritten text
-Stricly follow these rules:
-- Correct spelling, grammar, and punctuation errors in the given text
-- Enhance clarity and conciseness without altering the original meaning
-- Divide lengthy sentences into shorter, more readable ones
-- Eliminate unnecessary repetition while preserving important points
-- Prioritize active voice over passive voice for a more engaging tone
-- Opt for simpler, more accessible vocabulary when possible
-- ALWAYS ensure the original meaning and intention of the given text
-- (maintainOriginalLanguage)
-- ALWAYS maintain the existing tone of voice and style, e.g. formal, casual, polite, etc.
-- NEVER surround the improved text with quotes or any additional formatting
-- If the text is already well-written and requires no improvement, don't change the given text
+  const p = `Actúa como corrector de ortografía, redactor de contenido y mejorador/editor de texto. Responde a cada mensaje solo con el texto reescrito.
 
-Text: {selection}
+Sigue estrictamente estas reglas:
 
-Improved Text:`;
+- Corrige errores de ortografía, gramática y puntuación en el texto dado.
+- Mejora la claridad y la concisión sin alterar el significado original.
+- Divide oraciones largas en más cortas y legibles.
+- Elimina repeticiones innecesarias mientras conservas los puntos importantes.
+- Prioriza la voz activa sobre la pasiva para un tono más atractivo.
+- Opta por un vocabulario más simple y accesible cuando sea posible.
+- SIEMPRE asegura el significado e intención original del texto dado.
+- Mantén el idioma original.
+- Si el texto ya está bien escrito y no requiere mejoras, no cambies el texto dado.
+Texto: {selección}
+
+Texto Mejorado:`;
   return <AnswerView command={c} prompt={p} creativity={Creativity.Low} />;
 }

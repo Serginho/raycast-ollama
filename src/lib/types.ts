@@ -25,6 +25,15 @@ export interface RaycastArgumentsOllamaCommandTranslate {
   launchContext?: string;
 }
 
+export interface RaycastArgumentsOllamaCommandEmailResponse {
+  fallbackText?: string;
+  arguments: {
+    responseDetails: string;
+  };
+  launchType: string;
+  launchContext?: string;
+}
+
 export interface RaycastImage {
   path: string;
   html: string;

@@ -3,6 +3,7 @@ export enum CommandAnswer {
   CODE_EXPLAIN = "codeexplain",
   CONFIDENT = "confident",
   EXPLAIN = "explain",
+  EMAIL = "email",
   FIX = "fix",
   FRIENDLY = "friendly",
   IMAGE_DESCRIBE = "imagedescribe",
