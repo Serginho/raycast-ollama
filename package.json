@@ -62,20 +62,6 @@
   ],
   "commands": [
     {
-      "name": "ollama-chat",
-      "title": "Ollama chat",
-      "subtitle": "Ollama",
-      "description": "Chat with Ollama",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-browser-summarize",
-      "title": "Ollama summarize website",
-      "subtitle": "Ollama",
-      "description": "Summarize content from current Website.",
-      "mode": "view"
-    },
-    {
       "name": "ollama-code-explain",
       "title": "Ollama code explain",
       "subtitle": "Ollama",
@@ -109,13 +95,6 @@
       "title": "Ollama fix spelling and grammar",
       "subtitle": "Ollama",
       "description": "Correct spelling and grammar",
-      "mode": "view"
-    },
-    {
-      "name": "ollama-image-describe",
-      "title": "Ollama image describe",
-      "subtitle": "Ollama",
-      "description": "Describe content of clipboard or selected image from browser",
       "mode": "view"
     },
     {
@@ -166,6 +145,36 @@
       "subtitle": "Ollama",
       "description": "Summarize text in 200 words",
       "mode": "view"
+    },
+    {
+      "name": "ollama-talk",
+      "title": "Ollama talk",
+      "subtitle": "Ollama",
+      "description": "Talk to the model",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "input",
+          "placeholder": "Habla conmigo",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "ollama-query",
+      "title": "Ollama query",
+      "subtitle": "Ollama",
+      "description": "Query selected text to the model",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "input",
+          "placeholder": "Consulta",
+          "type": "text",
+          "required": true
+        }
+      ]
     },
     {
       "name": "ollama-translate-es",

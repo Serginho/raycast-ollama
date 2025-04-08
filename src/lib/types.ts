@@ -34,6 +34,24 @@ export interface RaycastArgumentsOllamaCommandEmailResponse {
   launchContext?: string;
 }
 
+export interface RaycastArgumentsOllamaCommandTalkResponse {
+  fallbackText?: string;
+  arguments: {
+    input: string;
+  };
+  launchType: string;
+  launchContext?: string;
+}
+
+export interface RaycastArgumentsOllamaCommandQueryResponse {
+  fallbackText?: string;
+  arguments: {
+    input: string;
+  };
+  launchType: string;
+  launchContext?: string;
+}
+
 export interface RaycastImage {
   path: string;
   html: string;

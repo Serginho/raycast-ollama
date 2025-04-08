@@ -22,7 +22,7 @@ Sigue estrictamente estas reglas:
 - SIEMPRE asegura el significado e intención original del texto dado.
 - Mantén el idioma original.
 - Si el texto ya está bien escrito y no requiere mejoras, no cambies el texto dado.
-Texto: {selección}
+Texto: {selection}
 
 Texto Mejorado:`;
   return <AnswerView command={c} prompt={p} creativity={Creativity.Low} />;
