@@ -3,11 +3,33 @@
     <img alt="Ollama AI extension icon" height="128" src="assets/icon@dark.png">
   </picture>
   <h1>Ollama AI for Raycast</h1>
+  <p><strong>Local and remote LLM inference, chat, and writing tools for Raycast — powered by Ollama.</strong></p>
+
+  <p>
+    <img alt="Raycast" src="https://img.shields.io/badge/Raycast-Extension-FF6363?logo=raycast&logoColor=white">
+    <img alt="Platform" src="https://img.shields.io/badge/platform-macOS%20%7C%20Windows-lightgrey">
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue">
+    <img alt="Ollama" src="https://img.shields.io/badge/powered%20by-Ollama-000000">
+  </p>
 </div>
 
-Use [Ollama](https://ollama.com) models from Raycast for local and remote inference, chat, writing assistance, image understanding, model management, and tool calling.
+Use [Ollama](https://ollama.com) models from Raycast for local and remote inference, chat, writing assistance, image understanding, model management, and tool calling — all without leaving your keyboard.
+
+> This is a personal fork of the official Raycast Ollama extension, kept up to date with upstream and adapted with Spanish-language prompts for the built-in commands.
 
 This extension is not affiliated with Ollama.
+
+## ✨ What's inside
+
+| | |
+|---|---|
+| 💬 **Chat** | Multi-turn conversations with per-role models, vision, tool calling, and MCP servers |
+| ⚡ **Quick Commands** | One-shot writing, rewriting, translation, and explanation commands |
+| 🖼️ **Vision** | Describe images and extract text with vision-capable models |
+| 🗂️ **Model Management** | Pull, load, unload, and inspect models across local and remote servers |
+| 🧩 **Custom Commands** | Build your own Quicklink-backed prompts |
+| 🌐 **Web Search & Fetch** | Give Ollama models and Raycast AI live web access |
+| 🔌 **MCP Servers** | Extend chat with external tools over MCP |
 
 ## Requirements
 
@@ -17,7 +39,7 @@ This extension is not affiliated with Ollama.
 
 You can install a model with the Ollama CLI or pull one directly from the **Manage Models** command. Browse available models in the [Ollama library](https://ollama.com/library).
 
-## Getting Started
+## 🚀 Getting Started
 
 1. Start Ollama or make sure your remote Ollama server is reachable.
 2. Open **Manage Models** in Raycast.
@@ -26,7 +48,7 @@ You can install a model with the Ollama CLI or pull one directly from the **Mana
 
 Remote servers can be configured without authentication, with basic authentication, or with a bearer token.
 
-## Chat with Ollama
+## 💬 Chat with Ollama
 
 Use **Chat with Ollama** for saved, multi-turn conversations. You can choose separate models for general chat, vision, and tool use, as well as configure thinking effort and how long each model stays loaded in memory.
 
@@ -41,7 +63,7 @@ The action menu lets you:
 
 The **Chat Memory Messages** preference controls how many recent messages are sent back to the model. The default is 20.
 
-## Quick Commands
+## ⚡ Quick Commands
 
 The extension includes focused commands for common tasks:
 
@@ -56,7 +78,7 @@ Most text commands use the input source selected in the extension preferences: *
 
 Commands that rewrite their input also offer **Auto-Replace Selected Text**, enabled per command in its Raycast settings. When enabled, the generated text replaces your selection as soon as it is ready, instead of waiting for you to copy or paste it. It only replaces text when the selection actually supplied the input: if the input source was the clipboard, or fell back to it because nothing was selected, the answer is shown instead of overwriting whatever happens to be highlighted. Commands that explain, describe, or summarise their input do not offer it, because their output is not a replacement for what you selected.
 
-## Manage Models and Servers
+## 🗂️ Manage Models and Servers
 
 Use **Manage Models** to:
 
@@ -68,7 +90,7 @@ Use **Manage Models** to:
 
 Use **Loaded Models** to see the models currently held in memory and unload them when they are no longer needed.
 
-## Create Custom Commands
+## 🧩 Create Custom Commands
 
 Use **Create Custom Command** to create a Raycast Quicklink backed by your own prompt, model, and Ollama parameters. Prompts follow the [Raycast Prompt Explorer](https://prompts.ray.so) format and support these tags:
 
@@ -78,13 +100,13 @@ Use **Create Custom Command** to create a Raycast Quicklink backed by your own p
 
 Tick **Auto-Replace** to have the result replace the selected text automatically, as the built-in commands can. This only makes sense for a prompt that uses `{selection}`. The choice is stored in the Quicklink when it is created, so changing it later means creating the command again.
 
-## Web Search and Web Fetch
+## 🌐 Web Search and Web Fetch
 
 The extension exposes **Web Search** and **Web Fetch** tools to Raycast AI and can also use them inside **Chat with Ollama** when internet search is enabled.
 
 These tools require an Ollama API key. Create one in your [Ollama account settings](https://ollama.com/settings/keys), then add it to the extension's **Ollama API Key** preference. An API key is not required for local inference.
 
-## MCP Servers
+## 🔌 MCP Servers
 
 Use **Manage MCP Server** to add, edit, and remove stdio-based MCP servers for **Chat with Ollama**. Paste a standard JSON configuration such as:
 
@@ -101,7 +123,7 @@ Use **Manage MCP Server** to add, edit, and remove stdio-based MCP servers for *
 
 Select the configured servers in the chat model settings. Only MCP tools are currently supported, and the selected Ollama model must support tool calling.
 
-## Preferences
+## ⚙️ Preferences
 
 - **Input Source** chooses between selected text and clipboard text.
 - **Enable Input Source Fallback** checks the other source when the preferred source is empty.
