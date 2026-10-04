@@ -1,5 +1,106 @@
 # raycast-ollama Changelog
 
+## [Improvement] - 2026-09-28
+
+- Added per-command model settings with global defaults fallback
+- Added "Change Model" and "Change Reasoning" actions to 15 commands (accessible from root search)
+- Added "Configure Command Models" command to manage all command settings at once
+- Added "Set as Default Model" action in Manage Models
+- Added "Global Model Settings" command with model dropdown
+- Replaced generic "💾 Loading..." toast with descriptive "🔌 Connecting to Ollama..." toast at inference start
+- Kept "🤔 Thinking...", "✍️ Typing...", "🧰 Tool Calling...", "👍 Done." toasts for stream phases
+
+## [Raycast Model Provider] - 2026-09-24
+
+- Use models from your local and remote Ollama servers directly in Raycast AI, with streamed responses, conversation history, vision, and tool calling when supported.
+
+## [Improvement] - 2026-09-22
+
+- [Improvement] new per-command "Auto-Replace Selected Text" preference on the commands that rewrite their input: when enabled, the generated answer replaces the selected text automatically instead of waiting for you to copy or paste it. Disabled by default, and skipped when the answer did not complete cleanly or when the input came from the clipboard rather than a selection.
+- [Improvement] Command "Create Custom Command": new "Auto-Replace" option, so a custom command can replace the selected text automatically too.
+
+## [Improvement] - 2026-09-07
+
+- [Improvement] added "Paste in Active App" action for all commands, which pastes the answer on the active application.
+
+## [Fix] - 2026-09-04
+
+- Fixed model discovery timing out too quickly and showing connection failures as an empty installed-model list.
+- Fixed Manage Models and Loaded Models crashing when a remote Ollama server omits a loaded model's context length.
+
+## [Fix] - 2026-06-16
+
+- [Fix] Command "Chat with Ollama" and "Answer" commands: fixed a bug in the thinking rendering during streaming. The thinking text could stop updating mid-generation while the stream continued and the final answer appeared. The root cause was a missing flush of the pending `textThinkingBuffer` on stream termination (`emitDone`) combined with a `else if` in the throttle path that prevented symmetric flushing of thinking and content buffers.
+
+## [Improvement] - 2026-05-26
+
+- Command "Chat with Ollama": new system prompt with current date and system information in the context.
+- Command "Chat with Ollama": internet search using Ollama Search API. API Key Requied. Enabled by default.
+- Command "Chat with Ollama": improved tool call.
+- UI Improvements.
+
+## [Improvement and Fix] - 2026-05-18
+
+- [Improvement] The thinking process is now shown in a separate section.
+- [Improvement] You can now choose the level of thinking effort.
+- [Improvement] Improved rendering performance for all commands.
+- [Improvement] Minor UI changes.
+- [Fix] Missing Actions on empty Chat
+
+## [Improvement] - 2026-04-06
+
+- Added AI Extension "Web Search" and "Web Fetch". This feature requires the Ollama Web Search API Key.
+
+## [Improvement and Fix] - 2026-02-02
+
+- [Improvement] Command "Manage Models": added "Load Model on Memory" action, which loads the model on memory with no expiration date.
+- [Improvement] Command "Manage Models" and "Loaded Models": added "Unload Model From Memory" action, which unload the model from memory.
+- [Improvement] Command "Manage Models" and "Loaded Models": added "Context Length" information for loaded models.
+- [Improvement] Command "Manage Models" and "Loaded Models": dates are now formatted according to user locale.
+- [Improvement] Command "Manage Models" and "Loaded Models": implemented minor UI enhancements.
+- [Improvement] Command "Translate": now implements the TranslateGemma prompt, featuring source and target language selection via a dropdown menu. We recommend using the TranslateGemma model for this command.
+- [Fix] Fixed various bugs.
+
+## [Improvement] - 2025-11-24
+
+- [Improvement] New Liquid Glass Icon.
+- [Improvement] Added Windows support.
+- [Improvement] Adjusted shortcuts for better Raycast consistency.
+- Removed experimental file feature.
+
+## [Improvement and Fix] - 2025-05-07
+
+- [Improvement] Implemented support for Mcp Server. README.md for more information on how to use it.
+- [Improvement] On Command "Manage Models" and "Loaded Models" opening last selected server is the default choice.
+- [Improvement] Implemented an empty view on Command "Manage Models" and "Loaded Models" when no models are installed or loaded.
+- [Fix] Error loading models on changing models form when one or more Ollama server was unreachable.
+
+## [Fix] - 2025-02-24
+
+- Improved Ollama streaming processing leading to better performance when using remote Ollama server.
+
+## [Fix] - 2025-01-26
+
+- Corrected typos
+
+## [Improvement] - 2025-01-02
+
+- New Command 'Loaded Models': lists currently models loaded on memory. Data are auto updated every 3 seconds.
+- Command 'Manage Models': model currently loaded in memory flagged with tag 'In Memory'.
+- Command 'Manage Models': added Action 'Update Model', pull selected model from registry updating it.
+- Command 'Manage Models': added Action 'Model Library', open Ollama Library Web page for listing available models.
+- Command 'Chat with Ollama': modified copy keybinds to 'cmd+shift+c' from 'cmd+c'.
+
+## [Improvement and BugFix] - 2024-08-05
+
+- [Improvement] New action "Continue as Chat" on single shot commands allow continuing conversation on "Chat with Ollama".
+- [BugFix] Custom commands created before "2024-06-03" update, or with incorrect parameters now display error message instead of crashing.
+- [BugFix] Typo fixed on "Make Longer" command.
+
+## [BugFix] - 2024-06-30
+
+- Fixed typo on error code 'Raycast Browser Extensions Needed for This Feature'.
+
 ## [BugFix] - 2024-06-20
 
 - Fixed Error `keep alive, error missing unit in duration` on **Command 'Create Custom Command'**.
@@ -11,10 +112,10 @@
 ## [Improvement] - 2024-06-03
 
 - **Command 'Manage Models'**: Support for multiple configured Ollama Server, manage and use models from different server.
-- **Command 'Custom Command'**: changed prompt format to the [Raycast Prompt Explorer](https://prompts.ray.so/) one. More details on supported tag on the *README.md*. ***WARNING***: This change combined with allowing multiple Ollama server feature break all configured custom command so all custom commands need to be reconfigured.
+- **Command 'Custom Command'**: changed prompt format to the [Raycast Prompt Explorer](https://prompts.ray.so/) one. More details on supported tag on the _README.md_. **_WARNING_**: This change combined with allowing multiple Ollama server feature break all configured custom command so all custom commands need to be reconfigured.
 - **Command 'Summarize Website'**: New command that summarize the content of the current web browser tab. For this feature [Raycast Browser Extentision](https://www.raycast.com/browser-extension) is required.
 - **Command 'Chat with Ollama'**: Improved UI, combine models from different Ollama Server and use browser content on prompt with [Raycast Browser Extentision](https://www.raycast.com/browser-extension).
-- Added support for *keep_alive*, you can now chose how many minutes the model must stay on memory.
+- Added support for _keep_alive_, you can now chose how many minutes the model must stay on memory.
 
 ## [BugFix] - 2024-03-12
 

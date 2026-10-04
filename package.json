@@ -6,7 +6,15 @@
   "icon": "icon.png",
   "author": "massimiliano_pasquini",
   "contributors": [
+    "0xdhrv",
+    "ashokbaruaakas",
+    "pernielsentikaer",
+    "kud",
     "serginho"
+  ],
+  "platforms": [
+    "macOS",
+    "Windows"
   ],
   "categories": [
     "Productivity"
@@ -58,15 +66,109 @@
       "required": false,
       "default": false,
       "label": "Certificate Validation Enabled"
+    },
+    {
+      "name": "ollamaApiKey",
+      "description": "Ollama API Key used by Web Search Tools",
+      "type": "password",
+      "required": false,
+      "title": "Ollama API Key"
+    },
+    {
+      "name": "ollamaDefaultServer",
+      "description": "Default Ollama server to use for all commands",
+      "type": "textfield",
+      "required": false,
+      "title": "Default Server",
+      "placeholder": "Local"
+    },
+    {
+      "name": "ollamaDefaultModel",
+      "description": "Default model to use for all commands. Must match an installed model name exactly (e.g., 'llama3.2', 'mistral:7b'). Use the 'Global Model Settings' command for a dropdown selection.",
+      "type": "textfield",
+      "required": false,
+      "title": "Default Model",
+      "placeholder": "llama3.2"
+    },
+    {
+      "name": "ollamaDefaultThinking",
+      "description": "Default thinking effort for all commands",
+      "type": "dropdown",
+      "required": false,
+      "title": "Default Thinking Effort",
+      "data": [
+        {
+          "title": "None",
+          "value": "none"
+        },
+        {
+          "title": "Low",
+          "value": "low"
+        },
+        {
+          "title": "Medium",
+          "value": "medium"
+        },
+        {
+          "title": "High",
+          "value": "high"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "name": "ollamaDefaultKeepAlive",
+      "description": "Default keep alive duration for models",
+      "type": "textfield",
+      "required": false,
+      "title": "Default Keep Alive",
+      "placeholder": "5m"
     }
   ],
+  "tools": [
+    {
+      "name": "ollama-web-fetch",
+      "title": "Web Fetch",
+      "description": "Fetches a single web page by URL and returns its content."
+    },
+    {
+      "name": "ollama-web-search",
+      "title": "Web Search",
+      "description": "Performs a web search for a single query and returns relevant results."
+    }
+  ],
+  "ai": {
+    "modelProvider": "models"
+  },
   "commands": [
     {
       "name": "ollama-code-explain",
       "title": "Ollama code explain",
       "subtitle": "Ollama",
       "description": "Explain selected code step by step",
-      "mode": "view"
+      "mode": "view",
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "codeexplain"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "codeexplain"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-email-response",
@@ -81,6 +183,28 @@
           "type": "text",
           "required": true
         }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "email"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "email"
+          }
+        }
       ]
     },
     {
@@ -88,63 +212,305 @@
       "title": "Ollama explain",
       "subtitle": "Ollama",
       "description": "Explain selected text in simple terms",
-      "mode": "view"
+      "mode": "view",
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "explain"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "explain"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-fix-spelling-grammar",
       "title": "Ollama fix spelling and grammar",
       "subtitle": "Ollama",
       "description": "Correct spelling and grammar",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "ollamaAutoReplace",
+          "description": "Replace the selected text with the result as soon as it is generated, instead of showing the answer to copy or paste yourself. Only applies when the selection supplied the input; if the clipboard did, the answer is shown instead.",
+          "type": "checkbox",
+          "required": false,
+          "title": "Auto-Replace Selected Text",
+          "label": "Replace the selected text automatically",
+          "default": false
+        }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "fix"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "fix"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-image-to-text",
       "title": "Ollama image to text",
       "subtitle": "Ollama",
       "description": "Extract text from image",
-      "mode": "view"
+      "mode": "view",
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "image-to-text"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "image-to-text"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-improve-writing",
       "title": "Ollama improve writing",
       "subtitle": "Ollama",
       "description": "Improve writing style",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "ollamaAutoReplace",
+          "description": "Replace the selected text with the result as soon as it is generated, instead of showing the answer to copy or paste yourself. Only applies when the selection supplied the input; if the clipboard did, the answer is shown instead.",
+          "type": "checkbox",
+          "required": false,
+          "title": "Auto-Replace Selected Text",
+          "label": "Replace the selected text automatically",
+          "default": false
+        }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "improve"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "improve"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-longer",
       "title": "Ollama text longer",
       "subtitle": "Ollama",
       "description": "Make text longer",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "ollamaAutoReplace",
+          "description": "Replace the selected text with the result as soon as it is generated, instead of showing the answer to copy or paste yourself. Only applies when the selection supplied the input; if the clipboard did, the answer is shown instead.",
+          "type": "checkbox",
+          "required": false,
+          "title": "Auto-Replace Selected Text",
+          "label": "Replace the selected text automatically",
+          "default": false
+        }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "longer"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "longer"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-professional",
       "title": "Ollama change professional tone",
       "subtitle": "Ollama",
       "description": "Make tone professional",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "ollamaAutoReplace",
+          "description": "Replace the selected text with the result as soon as it is generated, instead of showing the answer to copy or paste yourself. Only applies when the selection supplied the input; if the clipboard did, the answer is shown instead.",
+          "type": "checkbox",
+          "required": false,
+          "title": "Auto-Replace Selected Text",
+          "label": "Replace the selected text automatically",
+          "default": false
+        }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "professional"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "professional"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-summary-15",
       "title": "Ollama summarize 15 words",
       "subtitle": "Ollama",
       "description": "Summarize text in 15 words",
-      "mode": "view"
+      "mode": "view",
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "shorter"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "shorter"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-summary-50",
       "title": "Ollama summarize 50 words",
       "subtitle": "Ollama",
       "description": "Summarize text in 50 words",
-      "mode": "view"
+      "mode": "view",
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "shorter"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "shorter"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-summary-200",
       "title": "Ollama summarize 200 words",
       "subtitle": "Ollama",
       "description": "Summarize text in 200 words",
-      "mode": "view"
+      "mode": "view",
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "shorter"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "shorter"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-talk",
@@ -158,6 +524,28 @@
           "placeholder": "Habla conmigo",
           "type": "text",
           "required": true
+        }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "professional"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "professional"
+          }
         }
       ]
     },
@@ -174,6 +562,28 @@
           "type": "text",
           "required": true
         }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "explain"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "explain"
+          }
+        }
       ]
     },
     {
@@ -181,20 +591,93 @@
       "title": "Ollama translate Spanish",
       "subtitle": "Ollama",
       "description": "Translate text to Spanish",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "ollamaAutoReplace",
+          "description": "Replace the selected text with the result as soon as it is generated, instead of showing the answer to copy or paste yourself. Only applies when the selection supplied the input; if the clipboard did, the answer is shown instead.",
+          "type": "checkbox",
+          "required": false,
+          "title": "Auto-Replace Selected Text",
+          "label": "Replace the selected text automatically",
+          "default": false
+        }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "translate"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "translate"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-translate-en",
       "title": "Ollama Translate English",
       "subtitle": "Ollama",
       "description": "Translate text to English",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "ollamaAutoReplace",
+          "description": "Replace the selected text with the result as soon as it is generated, instead of showing the answer to copy or paste yourself. Only applies when the selection supplied the input; if the clipboard did, the answer is shown instead.",
+          "type": "checkbox",
+          "required": false,
+          "title": "Auto-Replace Selected Text",
+          "label": "Replace the selected text automatically",
+          "default": false
+        }
+      ],
+      "actions": [
+        {
+          "name": "change-model",
+          "title": "Change Model",
+          "icon": "box",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "translate"
+          }
+        },
+        {
+          "name": "change-reasoning",
+          "title": "Change Reasoning",
+          "icon": "glasses",
+          "mode": "view",
+          "command": "ollama-edit-command",
+          "arguments": {
+            "command": "translate"
+          }
+        }
+      ]
     },
     {
       "name": "ollama-models",
       "title": "Manage Models",
       "subtitle": "Ollama",
       "description": "Manage installed models",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-ps",
+      "title": "Loaded Models",
+      "subtitle": "Ollama",
+      "description": "Show models loaded on ram",
       "mode": "view"
     },
     {
@@ -227,36 +710,105 @@
           "name": "parameters",
           "placeholder": "Parameters",
           "type": "text",
-          "required": false
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "ollama-configure",
+      "title": "Configure Command Models",
+      "subtitle": "Ollama",
+      "description": "Configure model, thinking effort, and keep alive for each command",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-global-settings",
+      "title": "Global Model Settings",
+      "subtitle": "Ollama",
+      "description": "Configure global default model settings for all commands",
+      "mode": "view"
+    },
+    {
+      "name": "ollama-edit-command",
+      "title": "Edit Command Settings",
+      "subtitle": "Ollama",
+      "description": "Change model, reasoning effort, and keep alive for a specific command",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "command",
+          "placeholder": "Command",
+          "type": "dropdown",
+          "required": true,
+          "data": [
+            {
+              "title": "Code Explain",
+              "value": "codeexplain"
+            },
+            {
+              "title": "Email Response",
+              "value": "email"
+            },
+            {
+              "title": "Explain",
+              "value": "explain"
+            },
+            {
+              "title": "Fix Spelling & Grammar",
+              "value": "fix"
+            },
+            {
+              "title": "Image to Text",
+              "value": "image-to-text"
+            },
+            {
+              "title": "Improve Writing",
+              "value": "improve"
+            },
+            {
+              "title": "Longer",
+              "value": "longer"
+            },
+            {
+              "title": "Professional",
+              "value": "professional"
+            },
+            {
+              "title": "Shorter",
+              "value": "shorter"
+            },
+            {
+              "title": "Translate",
+              "value": "translate"
+            }
+          ]
         }
       ]
     }
   ],
   "dependencies": {
-    "@langchain/community": "^0.2.0",
-    "@raycast/api": "^1.55.2",
-    "@raycast/utils": "^1.9.0",
-    "file-type": "^19.0.0",
-    "langchain": "^0.2.0",
-    "mammoth": "^1.7.2",
-    "mime-types": "^2.1.35",
-    "node-fetch": "^3.3.2",
-    "pdf-parse": "^1.1.1"
+    "@ai-sdk/openai-compatible": "^3.0.48",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@raycast/api": "2.5.0",
+    "@raycast/utils": "^2.3.1",
+    "ai": "^7.0.0",
+    "file-type": "^21.3.1"
   },
   "devDependencies": {
-    "@raycast/eslint-config": "1.0.5",
-    "@types/mime-types": "^2.1.4",
-    "@types/node": "18.18.4",
-    "@types/react": "18.2.27",
-    "eslint": "^7.32.0",
-    "prettier": "^2.8.8",
-    "typescript": "^4.4.3"
+    "@raycast/eslint-config": "^2.2.0",
+    "@types/mime-types": "^3.0.1",
+    "@types/node": "^26.4.1",
+    "@types/react": "^19.2.18",
+    "eslint": "^10.9.1",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.3"
   },
   "scripts": {
     "build": "ray build -e dist",
     "dev": "ray develop",
     "fix-lint": "ray lint --fix",
     "lint": "ray lint",
-    "publish": "npx @raycast/api@latest publish"
+    "publish": "npx @raycast/api@latest publish",
+    "test": "node --test tests/*.test.cjs"
   }
 }

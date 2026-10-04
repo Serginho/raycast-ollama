@@ -1,13 +1,13 @@
 import { getPreferenceValues } from "@raycast/api";
 import { Creativity } from "./lib/enum";
+import { OllamaApiModelCapability } from "./lib/ollama/enum";
 import { CommandAnswer } from "./lib/settings/enum";
-import { Preferences } from "./lib/types";
 import { AnswerView } from "./lib/ui/AnswerView/main";
 
-const pref = getPreferenceValues<Preferences>();
+const pref = getPreferenceValues<Preferences.OllamaProfessional>();
 if (!pref.ollamaCertificateValidation) process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
 
-export default function Command(): JSX.Element {
+export default function Command(): React.JSX.Element {
   const c = CommandAnswer.PROFESSIONAL;
   const p = `Actúa como un redactor y editor de contenido profesional.
 
@@ -20,10 +20,18 @@ Sigue estrictamente estas reglas:
 - Redacción concisa
 - Significado inalterado
 - Longitud mantenida
-- (maintainURLs)
-- (maintainOriginalLanguage)
-Texto: {selección}
+- Mantén las URLs
+- Mantén el idioma original
+Texto: {selection}
 
 Texto reescrito:`;
-  return <AnswerView command={c} prompt={p} creativity={Creativity.Low} />;
+  return (
+    <AnswerView
+      command={c}
+      prompt={p}
+      creativity={Creativity.Low}
+      capabilities={[OllamaApiModelCapability.COMPLETION]}
+      autoReplace={pref.ollamaAutoReplace}
+    />
+  );
 }

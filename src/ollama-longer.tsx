@@ -1,13 +1,13 @@
 import { getPreferenceValues } from "@raycast/api";
 import { Creativity } from "./lib/enum";
+import { OllamaApiModelCapability } from "./lib/ollama/enum";
 import { CommandAnswer } from "./lib/settings/enum";
-import { Preferences } from "./lib/types";
 import { AnswerView } from "./lib/ui/AnswerView/main";
 
-const pref = getPreferenceValues<Preferences>();
+const pref = getPreferenceValues<Preferences.OllamaLonger>();
 if (!pref.ollamaCertificateValidation) process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
 
-export default function Command(): JSX.Element {
+export default function Command(): React.JSX.Element {
   const c = CommandAnswer.LONGER;
   const p = `Actúa como un redactor de contenido profesional encargado de expandir el texto de un cliente manteniendo su esencia y estilo.
 
@@ -20,8 +20,16 @@ Sigue estrictamente estas reglas:
 - Mantén las URLs en su formato original sin reemplazarlas por enlaces en markdown.
 - Solo responde con el texto expandido.
 
-Texto: {selección}
+Texto: {selection}
 
 Texto expandido:`;
-  return <AnswerView command={c} prompt={p} creativity={Creativity.Low} />;
+  return (
+    <AnswerView
+      command={c}
+      prompt={p}
+      creativity={Creativity.Low}
+      capabilities={[OllamaApiModelCapability.COMPLETION]}
+      autoReplace={pref.ollamaAutoReplace}
+    />
+  );
 }

@@ -1,7 +1,7 @@
 import { Action, ActionPanel, Form, getPreferenceValues, Icon } from "@raycast/api";
 import { FormValidation, useForm, usePromise } from "@raycast/utils";
-import { Creativity } from "./lib/enum";
-import { GetModelsName } from "./lib/ui/function";
+import { Creativity, ThinkingEffort } from "./lib/enum";
+import { GetModels } from "./lib/ui/function";
 import * as React from "react";
 import { ValidationKeepAlive } from "./lib/ui/valitadion";
 import { InfoKeepAlive } from "./lib/ui/info";
@@ -14,26 +14,27 @@ interface FormData {
   server: string;
   model: string;
   creativity: string;
+  thinking: string;
   keep_alive: string;
+  auto_replace: boolean;
 }
 
-export default function Command(): JSX.Element {
-  const { data: Model, isLoading: IsLoadingModel } = usePromise(GetModelsName, []);
+export default function Command(): React.JSX.Element {
+  const { data: Model, isLoading: IsLoadingModel } = usePromise(GetModels, []);
   const { itemProps } = useForm<FormData>({
-    onSubmit() {
-      () => {
-        return;
-      };
-    },
+    onSubmit() {},
     initialValues: {
       creativity: String(Creativity.Medium),
+      thinking: String(ThinkingEffort.None),
       keep_alive: "5m",
+      auto_replace: false,
     },
     validation: {
       server: FormValidation.Required,
       model: FormValidation.Required,
       prompt: FormValidation.Required,
       creativity: FormValidation.Required,
+      thinking: FormValidation.Required,
       keep_alive: (value) => ValidationKeepAlive(CheckboxAdvanced, value),
     },
   });
@@ -49,25 +50,30 @@ export default function Command(): JSX.Element {
 - Medium: 0.8 (Ollama Default)
 - High: 1.5
 - Maximum: 2`;
+  const InfoThinking = "Thinking Effort";
+  const InfoAutoReplace =
+    "Replace the selected text with the result as soon as it is generated, instead of showing the answer to copy or paste yourself. Only applies when the selection supplied the input; if the clipboard did, the answer is shown instead.";
   const InfoPrompt = `Prompt Template, you can download public prompt form prompts.ray.so.
-Following tag are supported:
+The following tags are supported:
 - {selection}: Add selected text or clipboard to the prompt.
-- {broswer-tab}: Add current browser tab text to the prompt. Use {broser-tab format="markdown|html|text"} if you need a differente format from markdown. Raycast Browser Extention is required.
+- {browser-tab}: Add current browser tab text to the prompt. Use {browser-tab format="markdown|html|text"} if you need a different format from Markdown. The Raycast Browser Extension is required.
 - {image}: Add image on clipboard to the prompt. A model with vision capability is required.`;
 
   const ActionView = (
     <ActionPanel>
       <Action.CreateQuicklink
         quicklink={{
-          link: `raycast://extensions/massimiliano_pasquini/raycast-ollama/ollama-custom-command?arguments=${encodeURIComponent(
+          link: `${process.env.RAYCAST_SCHEME ?? "raycast"}://extensions/massimiliano_pasquini/raycast-ollama/ollama-custom-command?arguments=${encodeURIComponent(
             JSON.stringify({
               prompt: itemProps.prompt.value,
               model: `${itemProps.server.value}:${itemProps.model.value}`,
               parameters: JSON.stringify({
                 creativity: itemProps.creativity.value,
+                thinking: itemProps.thinking.value,
                 keep_alive: CheckboxAdvanced && itemProps.keep_alive.value,
+                auto_replace: itemProps.auto_replace.value,
               }),
-            })
+            }),
           )}`,
         }}
       />
@@ -89,7 +95,7 @@ Following tag are supported:
             .filter((v) => v[0] === itemProps.server.value)[0][1]
             .sort()
             .map((s) => (
-              <Form.Dropdown.Item title={s} value={s} key={s} />
+              <Form.Dropdown.Item title={s.name} value={s.name} key={s.name} />
             ))}
         </Form.Dropdown>
       )}
@@ -115,7 +121,34 @@ Following tag are supported:
           key={Creativity.Maximum}
         />
       </Form.Dropdown>
+      <Form.Dropdown title="Thinking Effort" info={InfoThinking} {...itemProps.thinking}>
+        <Form.Dropdown.Item title="None" value={String(ThinkingEffort.None)} key={ThinkingEffort.None} />
+        <Form.Dropdown.Item
+          title="Low"
+          icon={Icon.StackedBars1}
+          value={String(ThinkingEffort.Low)}
+          key={ThinkingEffort.Low}
+        />
+        <Form.Dropdown.Item
+          title="Medium"
+          icon={Icon.StackedBars2}
+          value={String(ThinkingEffort.Medium)}
+          key={ThinkingEffort.Medium}
+        />
+        <Form.Dropdown.Item
+          title="High"
+          icon={Icon.StackedBars3}
+          value={String(ThinkingEffort.High)}
+          key={ThinkingEffort.High}
+        />
+      </Form.Dropdown>
       <Form.TextArea title="Prompt" placeholder="Enter your prompt" info={InfoPrompt} {...itemProps.prompt} />
+      <Form.Checkbox
+        title="Auto-Replace"
+        label="Replace the selected text automatically"
+        info={InfoAutoReplace}
+        {...itemProps.auto_replace}
+      />
       <Form.Checkbox
         id="advanced"
         label="Advanced Settings"
